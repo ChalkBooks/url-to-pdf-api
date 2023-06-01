@@ -56,6 +56,7 @@ async function render(_opts = {}) {
     pdf: {
       format: 'A4',
       printBackground: true,
+      margin: { right: 50, left: 50 },
     },
     screenshot: {
       type: 'png',
