@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install curl gnupg -y \
   && apt-get update \
   && apt-get install google-chrome-stable ttf-mscorefonts-installer -y --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
-COPY *.tff /usr/share/fonts/truetype/msttcorefonts/
+ADD fonts /usr/share/fonts/truetype/msttcorefonts
 RUN fc-cache -f "/usr/share/fonts/truetype/msttcorefonts/" &> /dev/null
 
 
