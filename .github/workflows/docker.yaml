@@ -46,4 +46,4 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=min
           tags: |
-            194543040189.dkr.ecr.us-east-2.amazonaws.com/url-to-pdf:latest
+            194543040189.dkr.ecr.us-east-2.amazonaws.com/chalkbooks/url-to-pdf:latest
