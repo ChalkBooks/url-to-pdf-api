@@ -47,3 +47,4 @@ jobs:
           cache-to: type=gha,mode=min
           tags: |
             194543040189.dkr.ecr.us-east-2.amazonaws.com/chalkbooks/url-to-pdf:latest
+          platforms: linux/amd64,linux/arm64
