@@ -1,8 +1,8 @@
 FROM node:lts
 
 WORKDIR /usr/src/app
-ENV NODE_ENV=production
-ENV PORT=9000
+ENV NODE_ENV production
+ENV PORT 9000
 EXPOSE 9000
 
 RUN apt-get update \
@@ -25,17 +25,8 @@ RUN apt-get update && apt-get install curl gnupg -y \
   && curl --location --silent https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
   && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
   && apt-get update \
-  && apt-get install ttf-mscorefonts-installer -y --no-install-recommends \
+  && apt-get install google-chrome-stable ttf-mscorefonts-installer -y --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
-
-
-# Add sid repo and install chromium from sid for arm64
-RUN echo 'deb http://deb.debian.org/debian sid main' > /etc/apt/sources.list.d/sid.list \
-    && apt-get update \
-    && apt-get install -y -t sid chromium \
-    && rm /etc/apt/sources.list.d/sid.list \
-    && rm -rf /var/lib/apt/lists/*
-
 ADD fonts /usr/share/fonts/truetype/msttcorefonts
 RUN fc-cache -f "/usr/share/fonts/truetype/msttcorefonts/" &> /dev/null
 
@@ -45,10 +36,6 @@ RUN npm ci
 
 COPY . .
 
-ENV ALLOW_HTTP=true
-ENV BROWSER_EXECUTABLE_PATH=/usr/bin/chromium
-RUN ARCH="$(dpkg --print-architecture)" && \
-    if [ "$ARCH" = "arm64" ]; then \
-      echo 'BROWSER_EXECUTABLE_PATH=/usr/bin/chromium' >> /etc/environment; \
-    fi
+ENV ALLOW_HTTP true
+ENV BROWSER_EXECUTABLE_PATH /usr/bin/google-chrome
 CMD ["node", "src/index.js"]
